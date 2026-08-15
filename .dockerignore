@@ -1,0 +1,10 @@
+venv/
+.git/
+.vscode/
+notebooks/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+Churn_Modelling.csv
+requirements.txt
+README.md
