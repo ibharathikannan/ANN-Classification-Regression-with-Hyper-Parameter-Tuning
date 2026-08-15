@@ -9,11 +9,10 @@ WORKDIR /app
 COPY requirements-deploy.txt .
 RUN pip install --no-cache-dir -r requirements-deploy.txt
 
-# App code: the classification page (app.py, the multi-page entrypoint) and the
-# salary regression page (pages/1_Salary_Regression.py, Streamlit's native
-# multi-page convention - anything in pages/ becomes a sidebar nav entry).
+# App code: app.py is the st.navigation router (sets sidebar titles/icons
+# explicitly); the actual page content lives in views/.
 COPY app.py .
-COPY pages ./pages
+COPY views ./views
 
 # Trained models + fitted preprocessing artifacts needed at inference time.
 # label_encoder_gender.pkl / onehot_encoder_geo.pkl are shared by both pages;
