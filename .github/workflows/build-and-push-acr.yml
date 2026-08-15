@@ -27,12 +27,9 @@ jobs:
         docker build -t mlprojectdocker.azurecr.io/ann-classification-regression:latest .
         docker push mlprojectdocker.azurecr.io/ann-classification-regression:latest
 
-    # 4. Restart the Web App so it pulls the freshly-pushed image
-    - name: Azure Login
-      uses: azure/login@v1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-    - name: Restart Web App
-      run: |
-        az webapp restart --name ann-classification-regression --resource-group mlprojectdocker
+    # NOTE: pushing a new "latest" tag here does NOT automatically restart the live
+    # Web App - Azure needs to be told to pull it. The one-time fix (not something
+    # this workflow can safely do without another secret) is a Continuous Deployment
+    # webhook: Azure Portal -> ann-classification-regression Web App -> Deployment
+    # Center -> enable it there. Once enabled, every push above will auto-deploy
+    # with no further GitHub secrets needed.
